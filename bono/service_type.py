@@ -1,0 +1,7 @@
+from enum import StrEnum
+
+class ServiceType(StrEnum):
+  COLORECTAL = 'COLORECTAL SCREENING'
+  CHILDHOOD = 'CHILDHOOD IMMUNIZATION'
+  MAMMOGRAPHY = 'MAMMOGRAPHY'
+  PAP = 'PAP SMEAR'
