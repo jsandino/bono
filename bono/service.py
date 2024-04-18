@@ -31,6 +31,7 @@ class Service:
       case ServiceType.CHILDHOOD: return ChildhoodImmunization()
       case ServiceType.MAMMOGRAPHY: return Mammography()
       case ServiceType.PAP: return PapSmear()
+      case ServiceType.INFLUENZA: return Influenza()
 
     raise ValueError(f"Invalid service type '{service_type}'")
 
@@ -124,9 +125,13 @@ class Service:
 
 
   def _update_skipped(self, row):
+    service_date = row[self.service_date_index]
     if self._has_excluded_date:
-      service_date, excluded_date = row[self.service_date_index], row[self.excluded_date_index]
+      excluded_date = row[self.excluded_date_index]
       if _invalid(service_date) and _invalid(excluded_date):
+        self._skipped += 1
+    else:
+      if _invalid(service_date):
         self._skipped += 1
 
 
@@ -139,26 +144,38 @@ class Service:
 
   @property
   def percent_done(self):
-    total = (self._done / self._total_patients) * 100
-    return round(total, 2)
+    if self._total_patients:
+      total = (self._done / self._total_patients) * 100
+      return round(total, 2)
+    else:    
+      return 0
   
 
   @property
   def percent_skipped(self):
-    total = (self._skipped / self._total_patients) * 100
-    return round(total, 2)
+    if self._total_patients:
+      total = (self._skipped / self._total_patients) * 100
+      return round(total, 2)
+    else:
+      return 0
   
 
   @property
   def percent_excluded(self):
-    total = (self._excluded / self._total_patients) * 100
-    return round(total, 2)
+    if self._total_patients:
+      total = (self._excluded / self._total_patients) * 100
+      return round(total, 2)
+    else:
+      return 0
   
 
   @property
   def percent_target_done(self):
-    total = (self._done / self.total_target) * 100
-    return round(total, 2)
+    if self.total_target:
+      total = (self._done / self.total_target) * 100
+      return round(total, 2)
+    else:
+      return 0
 
 
   @property
@@ -225,6 +242,24 @@ class PapSmear(Service):
   @property
   def excluded_date_index(self):
     return 5             
+
+
+"""
+INFLUENZA
+"""
+class Influenza(Service):
+  def __init__(self):
+    super().__init__(ServiceType.INFLUENZA, has_excluded_date=False)
+
+
+  @property
+  def age_index(self):
+    return 3
+
+
+  @property
+  def service_date_index(self):
+    return 4
 
 
 """
