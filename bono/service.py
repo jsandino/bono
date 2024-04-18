@@ -3,8 +3,7 @@ import re
 import pandas as pd
 from pandas import DataFrame
 
-from service_type import ServiceType
-# from bono.service_type import ServiceType
+from bono.service_type import ServiceType
 
 """
 A type of preventive service offered during the calendar year.

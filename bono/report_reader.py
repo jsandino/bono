@@ -1,8 +1,7 @@
 from pandas import DataFrame
 from tabula import read_pdf
 
-# from bono.service import Service
-from service import Service
+from bono.service import Service
 
 class ReportReader:
 

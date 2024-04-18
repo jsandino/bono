@@ -1,4 +1,4 @@
-from report_reader import ReportReader
+from bono.report_reader import ReportReader
 
 def main():
   reader = ReportReader("input/Bono2024.pdf")
