@@ -1,8 +1,11 @@
+import sys
 from bono.report_reader import ReportReader
 
-def main():
-  reader = ReportReader("input/Bono2024.pdf")
-  # reader = ReportReader("input/test_data.pdf")
+default_report = "input/Bono2024.pdf"
+
+def main():  
+  report = sys.argv[1] if len(sys.argv) == 2 else default_report
+  reader = ReportReader(report)
   reader.load()
   print(reader.summary())
 
