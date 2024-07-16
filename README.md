@@ -1,4 +1,4 @@
-# Bono
+# Service Report Genereator
 A utility program to aid in producing service statistics for the Preventative Care Bonus Report.
 
 # Usage
